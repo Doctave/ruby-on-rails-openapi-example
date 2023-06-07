@@ -39,9 +39,10 @@ RSpec.configure do |config|
                 example: "Espresso"
               },
               price: {
-                type: :number,
-                minimum: 0,
-                example: 1.2
+                type: :string,
+                pattern: "^\\d*\\.?\\d*$",
+                example: "1.2",
+                description: "Price, formatted as a string"
               },
               customer: {
                 type: :string,
