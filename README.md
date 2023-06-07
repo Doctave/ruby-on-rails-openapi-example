@@ -5,7 +5,7 @@ rails new coffee_shop --api
 ```
 
 ```shell
-./bin/rails g model Order kind price:integer customer
+./bin/rails g model Order kind price:decimal customer
 ```
 
 ```shell
