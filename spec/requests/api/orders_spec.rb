@@ -7,6 +7,7 @@ RSpec.describe 'api/orders', type: :request do
     get('List orders') do
       tags 'Orders'
       consumes 'application/json'
+      produces 'application/json'
       description "List all orders in the system"
 
       response(200, 'successful') do
@@ -36,6 +37,7 @@ RSpec.describe 'api/orders', type: :request do
     post('create order') do
       tags 'Orders'
       consumes 'application/json'
+      produces 'application/json'
       description "Create a new order. **NOTE**: Price is set by customer! Do not go to production."
 
       parameter name: :order, in: :body, schema: { "$ref" => "#/components/schemas/order" }
@@ -75,6 +77,8 @@ RSpec.describe 'api/orders', type: :request do
 
     get('show order') do
       description "Get the details for a particular order"
+
+      produces 'application/json'
 
       response(200, 'successful') do
         schema "$ref" => "#/components/schemas/order"
