@@ -77,10 +77,33 @@ RSpec.describe 'api/orders', type: :request do
       description "Get the details for a particular order"
 
       response(200, 'successful') do
-        let!(:order) { Order.new(kind: "Latte", price: 0.8, customer: "Bob") }
+        schema "$ref" => "#/components/schemas/order"
 
+        let(:order) { Order.create(kind: "Latte", price: 0.8, customer: "Bob") }
         let(:id) { order.id }
         
+        after do |example|
+          content = example.metadata[:response][:content] || {}
+          example_spec = {
+            "application/json"=>{
+              examples: {
+                test_example: {
+                  value: JSON.parse(response.body, symbolize_names: true)
+                }
+              }
+            }
+          }
+          example.metadata[:response][:content] = content.deep_merge(example_spec)
+        end
+
+        run_test!
+      end
+
+      response(404, 'not found') do
+        schema "$ref" => "#/components/schemas/not_found"
+
+        let(:id) { 999999999 }
+
         after do |example|
           content = example.metadata[:response][:content] || {}
           example_spec = {

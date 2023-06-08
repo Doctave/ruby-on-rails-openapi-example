@@ -27,7 +27,7 @@ RSpec.configure do |config|
           not_found: {
             type: 'object',
             properties: {
-              message: { type: :string }
+              error: { type: :string }
             }
           },
           order: {
